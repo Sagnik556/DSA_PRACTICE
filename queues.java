@@ -1,137 +1,57 @@
-public class queues {
 
+import java.util.*;
 
-    class Node{
-        int data;
-        Node next;
-
-        Node(int data){
-            this.data=data;
-            this.next=null;
-        }
-    }
- 
-         class Queue{
-            static Node head= null; 
-            static Node tail = null;
+public class queues{
+    static class Queue {
+        static  Stack<Integer> s1 = new Stack<>();
+        static Stack<Integer> s2  = new Stack<>();
         
-
-       
-        // empty
         public static boolean isEmpty(){
-            return head==null && tail==null;
+            return s1.isEmpty();
         }
-
-        // // full
-        // public static boolean isFull(){
-        //     return (rear+1)%size == front;
-        // }
-
         // add
         public static void add(int data){
-
-            Node newNode  = new Node(data);
-            if(head == null){
-                head = tail = newNode;
-                return;
+            while(!s1.isEmpty()){
+                s2.push(s1.pop());
             }
-            tail.next = newNode;
-            tail = newNode;
+            s1.push(data);
+
+            while(!s2.isEmpty()){
+                s1.push(s2.pop());
+            }
         }
 
-
-        //     if(isEmpty()){
-        //         System.out.println("Empty queue");
-        //         return -1;
-        //     }
-
-
-        //     int front = head.data;
-        //     //  single element
-        //     if(tail == head){
-        //         tail = head= null;
-        //     } else{
-        //         head = head.next;
-        //     }
-        //     return front;
-        // }
-
-             
-
-            // if(rear == size-1){
-            //     System.out.println("Queue Overflow");
-            //     return;
-            // }
-            // // add 1st element
-            // if(front==-1){
-            //     front = 0;
-            // }
-
-            // rear+=1;
-            // arr[rear]=data;
-        }
-
-
-        // remove
+        // remove 
         public static int remove(){
             if(isEmpty()){
-                System.out.println("Queue Underflow");
+                System.out.println("queue empty");
                 return -1;
             }
 
-            int front = head.data;
-
-            // single element
-            if(tail==head){
-                tail = head = null;
-
-            }else{
-                head = head.next;
-            }
-
-            return front;
-
-            // int result=arr[front];
-            // front=(front +1)%size;
-
-            // // last el delete 
-            // if(rear== front){
-            //     rear=front=-1;
-            // }else{
-            //     front=(front+1)%size;
-            // }
-            
-            
-
-            // return result;
-
+            return s1.pop();
         }
-
 
         // peek
         public static int peek(){
             if(isEmpty()){
-                System.out.println("Empty");
+                System.out.println("queue Empty");
                 return -1;
             }
-            return head.data;
+
+            return s1.peek();
         }
+        
     }
     public static void main(String args[]){
-         Queue q = new Queue();
-         q.add(1);
-         q.add(2);
-         q.add(3);
-
-       
+       Queue q = new Queue();
+       q.add(1);
+       q.add(2);
+       q.add(3);
 
 
-
-        while(!q.isEmpty()){
-             System.out.println(q.peek());
-             q.remove();
-        }
-       
+       while(!q.isEmpty()){
+        System.out.println(q.peek());
+        q.remove();
+       }
     }
 }
-
